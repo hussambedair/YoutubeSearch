@@ -1,6 +1,7 @@
 package com.example.android.youtubesearch.Repos;
 
 import android.util.Log;
+import android.widget.Toast;
 
 
 import com.example.android.youtubesearch.API.APIManager;
@@ -37,8 +38,13 @@ public class VideosReposotiry {
                     public void onResponse(Call<VideosResponse> call, Response<VideosResponse> response) {
 
                         if (response.isSuccessful()) {
+
                             if (onVideosPreparedListener!= null) {
+                                Log.e("test message", "test test");
                                 onVideosPreparedListener.onVideosPrepared(response.body().getItems());
+
+
+
 
                             }
 

@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+
                     videosAdapter.changeData(videos);
                 }
             });
@@ -87,9 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
                 //Perform the final search
                 videosReposotiry = new VideosReposotiry(part, s);
-
+                Log.e("Query test", "this is a test");
                 videosReposotiry.getVideos(onVideosPreparedListener);
-
 
                 return false;
             }
