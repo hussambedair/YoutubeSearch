@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
     String part = "snippet";
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,17 +47,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-
         videosRecyclerView = findViewById(R.id.videos_recycler_view);
         videosAdapter = new VideosRecyclerAdapter(null);
         layoutManager = new LinearLayoutManager(MainActivity.this);
         videosRecyclerView.setAdapter(videosAdapter);
         videosRecyclerView.setLayoutManager(layoutManager);
-
-
-
-
-
 
     }
 
@@ -93,11 +84,11 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+
                 //Perform the final search
-
                 videosReposotiry = new VideosReposotiry(part, s);
-                videosReposotiry.getVideos(onVideosPreparedListener);
 
+                videosReposotiry.getVideos(onVideosPreparedListener);
 
 
                 return false;

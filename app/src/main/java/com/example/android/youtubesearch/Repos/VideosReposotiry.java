@@ -16,22 +16,22 @@ import retrofit2.Response;
 public class VideosReposotiry {
 
     private static String apiKey = "AIzaSyBrtaoPK0QlOy-HqxBkVWrHpcm7qHaFGzw";
-    private static String id = "7lCDEYXw3mM";
 
-    String part ;
-
+    String part;
     String q;
+
 
 
     public VideosReposotiry(String part, String q) {
         this.part = part;
         this.q = q;
+
     }
 
     public void getVideos (final OnVideosPreparedListener onVideosPreparedListener) {
 
         APIManager.getAPIs()
-                .getVideos(apiKey,part,q)
+                .getVideos(apiKey,part, q)
                 .enqueue(new Callback<VideosResponse>() {
                     @Override
                     public void onResponse(Call<VideosResponse> call, Response<VideosResponse> response) {
@@ -58,7 +58,7 @@ public class VideosReposotiry {
 
     public interface OnVideosPreparedListener {
 
-        public void onVideosPrepared(List<Item> newsList);
+        public void onVideosPrepared(List<Item> videosList);
     }
 
 
