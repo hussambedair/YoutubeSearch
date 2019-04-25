@@ -24,6 +24,7 @@ import com.example.android.youtubesearch.API.Model.VideosResponse.VideosResponse
 import com.example.android.youtubesearch.Adapters.VideosRecyclerAdapter;
 import com.example.android.youtubesearch.Repos.VideosReposotiry;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     VideosReposotiry videosReposotiry;
     String part = "snippet";
+    String type = "video";
+
 
 
     @Override
@@ -60,15 +63,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    VideosReposotiry.OnVideosPreparedListener onVideosPreparedListener = new VideosReposotiry.OnVideosPreparedListener() {
+    VideosReposotiry.OnVideosPreparedListener onVideosPreparedListener =
+            new VideosReposotiry.OnVideosPreparedListener() {
         @Override
         public void onVideosPrepared(final List<Item> videos) {
 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-
                     videosAdapter.changeData(videos);
+
+
                 }
             });
 
@@ -96,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String s) {
 
                 //Perform the final search
-                videosReposotiry = new VideosReposotiry(part, s);
+                videosReposotiry = new VideosReposotiry(part, s, type);
                 videosReposotiry.getVideos(onVideosPreparedListener);
 
 
@@ -107,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String s) {
                 // Text has changed, apply filtering?
 
+                //Perform the final search
+                videosReposotiry = new VideosReposotiry(part, s, type);
+                videosReposotiry.getVideos(onVideosPreparedListener);
+
                 return false;
             }
         });
@@ -115,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

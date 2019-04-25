@@ -10,9 +10,10 @@ import retrofit2.http.Query;
 public interface APIServices {
 
     @GET("search")
-    public Call<VideosResponse> getVideos(@Query("key") String apiKey,
-                                          @Query("part") String part,
-                                          @Query("q") String q);
+    public Call<VideosResponse> getVideos(@Query("part") String part,
+                                          @Query("q") String q,
+                                          @Query("type") String type,
+                                          @Query("key") String apiKey);
 
 
 

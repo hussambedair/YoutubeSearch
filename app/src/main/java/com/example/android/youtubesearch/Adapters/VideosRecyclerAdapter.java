@@ -1,5 +1,6 @@
 package com.example.android.youtubesearch.Adapters;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,7 +22,8 @@ public class VideosRecyclerAdapter extends
     List<Item> mVideos;
 
 
-    public VideosRecyclerAdapter(List<Item> mVideos) {
+
+    public VideosRecyclerAdapter( List<Item> mVideos) {
         this.mVideos = mVideos;
     }
 

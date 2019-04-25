@@ -22,19 +22,21 @@ public class VideosReposotiry {
 
     String part;
     String q;
+    String type;
 
 
 
-    public VideosReposotiry(String part, String q) {
+    public VideosReposotiry(String part, String q, String type) {
         this.part = part;
         this.q = q;
+        this.type=type;
 
     }
 
     public void getVideos (final OnVideosPreparedListener onVideosPreparedListener) {
 
         APIManager.getAPIs()
-                .getVideos(apiKey,part, q)
+                .getVideos(part, q, type, apiKey)
                 .enqueue(new Callback<VideosResponse>() {
                     @Override
                     public void onResponse(Call<VideosResponse> call, Response<VideosResponse> response) {
