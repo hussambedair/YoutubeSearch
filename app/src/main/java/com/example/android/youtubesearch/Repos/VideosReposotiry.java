@@ -42,10 +42,8 @@ public class VideosReposotiry {
                         if (response.isSuccessful()) {
 
                             if (onVideosPreparedListener!= null) {
-                                Log.e("test message", "test test");
                                 onVideosPreparedListener.onVideosPrepared(response.body().getItems());
 
-                                //insert the sources coming within the response into the database
                                 InsertVideosIntoDataBase thread =
                                         new InsertVideosIntoDataBase(response.body().getItems());
 
