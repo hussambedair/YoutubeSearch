@@ -5,8 +5,10 @@ import android.widget.Toast;
 
 
 import com.example.android.youtubesearch.API.APIManager;
+import com.example.android.youtubesearch.API.Model.VideosResponse.Default;
 import com.example.android.youtubesearch.API.Model.VideosResponse.Item;
 import com.example.android.youtubesearch.API.Model.VideosResponse.VideosResponse;
+import com.example.android.youtubesearch.Database.MyDataBase;
 
 import java.util.List;
 
@@ -43,6 +45,12 @@ public class VideosReposotiry {
                                 Log.e("test message", "test test");
                                 onVideosPreparedListener.onVideosPrepared(response.body().getItems());
 
+                                //insert the sources coming within the response into the database
+                                InsertVideosIntoDataBase thread =
+                                        new InsertVideosIntoDataBase(response.body().getItems());
+
+                                thread.start();
+
 
 
 
@@ -55,6 +63,9 @@ public class VideosReposotiry {
                     @Override
                     public void onFailure(Call<VideosResponse> call, Throwable t) {
                         //handle database call
+                        GetVideosFromDataBase thread =
+                                new GetVideosFromDataBase(onVideosPreparedListener);
+                        thread.start();
 
                     }
                 });
@@ -65,6 +76,59 @@ public class VideosReposotiry {
     public interface OnVideosPreparedListener {
 
         public void onVideosPrepared(List<Item> videosList);
+    }
+
+    //this is a Background Thread that insert data into database
+    class InsertVideosIntoDataBase extends Thread {
+
+        List<Item> mVideos;
+
+        public InsertVideosIntoDataBase(List<Item> videos) {
+            mVideos = videos;
+
+        }
+
+        @Override
+        public void run() {
+
+            MyDataBase.getInstance()
+                    .videoDao()
+                    .addVideos(mVideos);
+
+            Log.e("videos thread", "Insertion success");
+
+
+        }
+    }
+
+
+    //this is a Background Thread that gets data from database
+    class GetVideosFromDataBase extends Thread {
+
+        //notify me when you get the sources from the database
+        OnVideosPreparedListener mListener;
+
+        GetVideosFromDataBase(OnVideosPreparedListener listener) {
+            mListener = listener;
+
+        }
+
+
+        @Override
+        public void run() {
+
+            List<Item> videos = MyDataBase.getInstance()
+                    .videoDao()
+                    .getAllVideos();
+
+
+            //when the sources from the database are prepared and ready, notify me
+            mListener.onVideosPrepared(videos);
+
+            Log.e("sources thread", "pulling success");
+
+
+        }
     }
 
 

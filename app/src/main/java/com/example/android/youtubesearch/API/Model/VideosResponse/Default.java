@@ -2,16 +2,25 @@
 package com.example.android.youtubesearch.API.Model.VideosResponse;
 
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 
 @SuppressWarnings("unused")
+
 public class Default {
+
+
 
     @SerializedName("height")
     private Long mHeight;
+
     @SerializedName("url")
     private String mUrl;
+
     @SerializedName("width")
     private Long mWidth;
 

@@ -2,24 +2,44 @@
 package com.example.android.youtubesearch.API.Model.VideosResponse;
 
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 
 @SuppressWarnings("unused")
+@Entity
 public class Item {
 
+    @ColumnInfo
+    @Ignore
     @SerializedName("contentDetails")
     private ContentDetails mContentDetails;
+    @ColumnInfo
     @SerializedName("etag")
     private String mEtag;
+    @ColumnInfo
+    @PrimaryKey
+    @NonNull
     @SerializedName("id")
     private String mId;
+    @ColumnInfo
     @SerializedName("kind")
     private String mKind;
+    @Ignore
+    @ColumnInfo
     @SerializedName("snippet")
     private Snippet mSnippet;
+    @ColumnInfo
+    @Ignore
     @SerializedName("statistics")
     private Statistics mStatistics;
+    @ColumnInfo
+    @Ignore
     @SerializedName("status")
     private Status mStatus;
 
