@@ -1,5 +1,8 @@
 package com.example.android.youtubesearch;
 
+import android.app.SearchManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -46,12 +49,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         videosRecyclerView = findViewById(R.id.videos_recycler_view);
         videosAdapter = new VideosRecyclerAdapter(null);
         layoutManager = new LinearLayoutManager(MainActivity.this);
         videosRecyclerView.setAdapter(videosAdapter);
         videosRecyclerView.setLayoutManager(layoutManager);
+
+
+
 
     }
 
@@ -81,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
         MenuItem searchItem = menu.findItem(R.id.app_bar_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
 
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        ComponentName componentName = getComponentName();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -89,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 //Perform the final search
                 videosReposotiry = new VideosReposotiry(part, s);
                 videosReposotiry.getVideos(onVideosPreparedListener);
+
 
                 return false;
             }
